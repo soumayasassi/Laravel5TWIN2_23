@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use \Illuminate\Http\Request ;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,10 +40,12 @@ Route::get('welcome' ,[\App\Http\Controllers\HomeController::class , 'welcome'])
 Route::get('show' ,[\App\Http\Controllers\HomeController::class , 'show']);
 
 Route::get('/trimstring',[\App\Http\Controllers\HomeController::class,'trimstring']) ;
-Route::get('/result', function (\Illuminate\Http\Request $request ) {
+Route::get('/result', function (Request $request ) {
     return 'La valeur sans espace  '. $request->nom;
 })->name('resultname');
 
-Route::get('/verif/{age}', function (\Illuminate\Http\Request $request) {
+Route::get('/verif/{age}', function ( Request $request) {
     return $request->age ;
 })->middleware(\App\Http\Middleware\VerifAge::class);
+
+Route::resource('product',\App\Http\Controllers\ProductController::class);
