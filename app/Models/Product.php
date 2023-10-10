@@ -14,6 +14,17 @@ class Product extends Model
         'description' ,
         'price',
         'stock',
+        'category_id',
 
     ];
+    public function category()
+    {
+        return $this->belongsTo(category::class) ;
+    }
+
+    public function catalogues()
+    {
+        return $this->belongsToMany(Catalogue::class) ;
+    }
+
 }

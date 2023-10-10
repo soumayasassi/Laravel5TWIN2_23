@@ -1,1 +1,1 @@
-Bonjour {{$name}} : votre ID est {{$id}}
+nom : {{$name}}

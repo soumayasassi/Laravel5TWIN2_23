@@ -16,10 +16,11 @@ class VerifAge
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->age <18)
-        {
-            return redirect('/');
-        }
+$age = $request->age ;
+if($age <18)
+{
+    return redirect('/') ;
+}
 
 
         return $next($request);

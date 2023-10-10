@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Catalogue;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -26,8 +27,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-
-        return view('Product.create');
+        $catalogues = Catalogue::all() ;
+$categories = Category::all() ;
+        return view('Product.create', compact('categories', 'catalogues'));
     }
 
     /**
@@ -39,8 +41,18 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate(
+            [
+                'name'=>'required|max:20' ,
+                "description"=>'required|max:200' ,
+                "price"=>'required|numeric' ,
+                "stock"=> 'required|numeric',
+            ]
+        );
         $product = Product::create($request->all());
+    $product->catalogues()->attach($request->cats);
 
+        $product->save();
         /*$product = new Product([
             "name" => $request->get('name'),
             "description" => $request->get('description'),
